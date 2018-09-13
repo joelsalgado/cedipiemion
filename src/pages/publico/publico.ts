@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
 
 /**
  * Generated class for the PublicoPage page.
@@ -14,8 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'publico.html',
 })
 export class PublicoPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  sectors: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public restProvider: RestProvider) {
+    this.getSectors();
+  }
+  getSectors() {
+    this.restProvider.getSectors()
+      .then(data => {
+        this.sectors = JSON.parse(<string>data);
+        console.log(this.sectors);
+      });
   }
 
   ionViewDidLoad() {

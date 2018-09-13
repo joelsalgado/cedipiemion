@@ -16,5 +16,10 @@
 
 
 <ion-content padding>
-
+  <ion-item>
+    <ion-label>Sector</ion-label>
+    <ion-select [(ngModel)]="person">
+      <ion-option *ngFor="let sector of sectors" [value] = "sector.clasificgob_id">{{sector.clasificgob_desc}}</ion-option>
+    </ion-select>
+  </ion-item>
 </ion-content>

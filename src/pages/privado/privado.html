@@ -14,71 +14,88 @@
 
 </ion-header>
 <ion-content padding>
-  <ion-item>
-    <ion-label>Sector</ion-label>
-    <ion-select [(ngModel)]="person">
-      <ion-option *ngFor="let sector of sectors" [value] = "sector.clasificgob_id">{{sector.clasificgob_desc}}</ion-option>
-    </ion-select>
-  </ion-item>
-
-  <h2>Add User</h2>
+  <h2>Nuevo Padrino</h2>
   <form (ngSubmit)="saveUser()">
     <ion-item>
-      <ion-label>Nombre</ion-label>
-      <ion-input type="text" [(ngModel)]="user.name" name="name"></ion-input>
+      <ion-label floating>Estructura Gubernamental</ion-label>
+      <ion-select [(ngModel)]="padrino.ESTRUCTURA" name="ESTRUCTURA">
+        <ion-option *ngFor="let estructura of estructuras" [value] = "estructura.estrucgob_id">{{estructura.estrucgob_desc}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Apellido Paterno</ion-label>
-      <ion-input type="text" [(ngModel)]="user.username" name="username"></ion-input>
+      <ion-label floating>Apellido Paterno</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.APELLIDO_PATERNO" name="APELLIDO_PATERNO" required="true"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Apellido Materno<</ion-label>
-      <ion-input type="text" [(ngModel)]="user.email" name="email"></ion-input>
+      <ion-label floating>Apellido Materno</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.APELLIDO_MATERNO" name="APELLIDO_MATERNO"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Phone</ion-label>
-      <ion-input type="text" [(ngModel)]="user.phone" name="phone"></ion-input>
+      <ion-label floating>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.NOMBRES" name="NOMBRES"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Website</ion-label>
-      <ion-input type="url" [(ngModel)]="user.website" name="website"></ion-input>
-    </ion-item>
-    <ion-item-divider color="light">Address</ion-item-divider>
-    <ion-item>
-      <ion-label>Street</ion-label>
-      <ion-input type="text" [(ngModel)]="user.address.street" name="street"></ion-input>
+      <ion-label floating>Razón Social</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.RAZON_SOCIAL" name="RAZON_SOCIAL"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Suite</ion-label>
-      <ion-input type="text" [(ngModel)]="user.address.suite" name="suite"></ion-input>
+      <ion-label floating>Clave o número de trabajador</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.CVE_SP" name="CVE_SP"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>City</ion-label>
-      <ion-input type="text" [(ngModel)]="user.address.city" name="city"></ion-input>
+      <ion-label floating>Representante de la empresa</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.REPRESENTANTE" name="REPRESENTANTE"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Zip Code</ion-label>
-      <ion-input type="text" [(ngModel)]="user.address.zipcode" name="zipcode"></ion-input>
+      <ion-label floating>RFC</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.RFC" name="RFC"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Geo</ion-label>
-      <ion-input type="text" [(ngModel)]="user.address.geo.lat" name="lat" placeholder="Latitude"></ion-input>
-      <ion-input type="text" [(ngModel)]="user.address.geo.lng" name="lng" placeholder="Longitude"></ion-input>
+      <ion-label floating>Ahijados a apadrinar</ion-label>
+      <ion-range [(ngModel)]="padrino.NO_AHIJADOS" name="NO_AHIJADOS" pin="true" min="1" max ="500"></ion-range>
     </ion-item>
-    <ion-item-divider color="light">Company</ion-item-divider>
+    <ion-item-divider color="light">DOMICILIO FISCAL</ion-item-divider>
     <ion-item>
-      <ion-label>Name</ion-label>
-      <ion-input type="text" [(ngModel)]="user.company.name" name="name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Business</ion-label>
-      <ion-input type="text" [(ngModel)]="user.company.bs" name="bs"></ion-input>
+      <ion-label floating>Calle</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.CALLE" name="CALLE"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Catch Phrase</ion-label>
-      <ion-input type="text" [(ngModel)]="user.company.catchPhrase" name="catchPhrase"></ion-input>
+      <ion-label floating>Núm. Ext</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.NUM_EXT" name="NUM_EXT"></ion-input>
     </ion-item>
-    <button ion-button type="submit" block>Add User</button>
+    <ion-item>
+      <ion-label floating>Núm. Int</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.NUM_INT" name="NUM_INT"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Colonia</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.COLONIA" name="COLONIA"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>C.P.</ion-label>
+      <ion-input type="number" [(ngModel)]="padrino.CP" name="CP"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>LADA</ion-label>
+      <ion-input type="text" [(ngModel)]="padrino.LADA" name="LADA"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>TELEFONO</ion-label>
+      <ion-input type="number" [(ngModel)]="padrino.TELEFONO" name="TELEFONO"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Correo Electrónico</ion-label>
+      <ion-input type="email" [(ngModel)]="padrino.CORREO" name="CORREO"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-label floating>Requiere recibo deducible?</ion-label>
+      <ion-input type="email" [(ngModel)]="padrino.RECIBO_DEDUCIBLE" name="RECIBO_DEDUCIBLE"></ion-input>
+    </ion-item>
+    <ion-item-divider color="light">Opciones de municipio para apadrinar</ion-item-divider>
+
+
+    <button ion-button type="submit" block>Guardar</button>
   </form>
 
 

@@ -16,10 +16,35 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class PrivadoPage {
   sectors: any;
+  estructuras: any;
   user = { name: '', username: '', email: '', phone: '', website: '', address: { street: '', suite: '', city: '', zipcode: '', geo: { lat: '', lng: '' } }, company: { name: '', bs: '', catchPhrase: '' }};
+  padrino = {
+    CVE_SP: '',
+    SECTOR: 5,
+    ESTRUCTURA: '',
+    APELLIDO_PATERNO: '',
+    APELLIDO_MATERNO: '',
+    NOMBRES: '',
+    RAZON_SOCIAL : '',
+    REPRESENTANTE: '',
+    RFC: '',
+    NO_AHIJADOS: '',
+    CALLE : '',
+    NUM_EXT: '',
+    NUM_INT  : '',
+    COLONIA: '',
+    CP: '',
+    LADA: '',
+    TELEFONO: '',
+    CORREO: '',
+    RECIBO_DEDUCIBLE: '',
+    OPCION1: '',
+    OPCION2 : '',
+    OPCION3: '' };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
     this.getSectors();
+    this.getEstructura();
 
   }
 
@@ -31,12 +56,16 @@ export class PrivadoPage {
       });
   }
 
+  getEstructura() {
+    this.restProvider.getEstructuraPrivada()
+      .then(data => {
+        this.estructuras = JSON.parse(<string>data);
+        console.log(this.sectors);
+      });
+  }
+
   saveUser() {
-    this.restProvider.saveUser(this.user).then((result) => {
-      console.log(result);
-    }, (err) => {
-      console.log(err);
-    });
+    console.log(this.padrino);
   }
 
 

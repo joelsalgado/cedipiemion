@@ -16,6 +16,18 @@ export class RestProvider {
     console.log('Hello RestProvider Provider');
   }
 
+  getEstructuraPrivada() {
+    return new Promise(resolve => {
+      this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/sectores/estructuras/5', {}, {}).
+      then((data) => {
+        resolve(data.data);
+      })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
+
   getSectors() {
     return new Promise(resolve => {
       this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/sectores', {}, {}).
