@@ -40,11 +40,23 @@ export class RestProvider {
     });
   }
 
-  saveUser($value) {
+  getMunicipios() {
     return new Promise(resolve => {
-      this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/sectores', {}, {}).
+      this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/municipios', {}, {}).
       then((data) => {
         resolve(data.data);
+      })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
+
+  saveUser(data) {
+    return new Promise(resolve => {
+      this.http.post('http://187.189.134.199:8000/cedipiem/public/api/padrino/nuevo-padrino/app', data , {}).
+      then((res) => {
+        resolve(res);
       })
         .catch((error) => {
           console.log(error);

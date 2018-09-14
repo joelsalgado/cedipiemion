@@ -24,11 +24,11 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Apellido Paterno</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.APELLIDO_PATERNO" name="APELLIDO_PATERNO" required="true"></ion-input>
+      <ion-input type="text" [(ngModel)]="padrino.PATERNO" name="PATERNO" required="true"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Apellido Materno</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.APELLIDO_MATERNO" name="APELLIDO_MATERNO"></ion-input>
+      <ion-input type="text" [(ngModel)]="padrino.MATERNO" name="MATERNO"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Nombre</ion-label>
@@ -40,7 +40,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Clave o número de trabajador</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.CVE_SP" name="CVE_SP"></ion-input>
+      <ion-input type="text" [(ngModel)]="padrino.CVE_SERV_PUBLICO" name="CVE_SERV_PUBLICO"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Representante de la empresa</ion-label>
@@ -90,10 +90,30 @@
     <br>
     <ion-item>
       <ion-label floating>Requiere recibo deducible?</ion-label>
-      <ion-input type="email" [(ngModel)]="padrino.RECIBO_DEDUCIBLE" name="RECIBO_DEDUCIBLE"></ion-input>
+      <ion-select [(ngModel)]="padrino.RECIBO_DEDUCIBLE" name="RECIBO_DEDUCIBLE">
+        <ion-option value="S">SI</ion-option>
+        <ion-option value="N">NO</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item-divider color="light">Opciones de municipio para apadrinar</ion-item-divider>
-
+    <ion-item>
+      <ion-label floating>Opción 1</ion-label>
+      <ion-select [(ngModel)]="padrino.OPCION1" name="OPCION1">
+        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Opción 2</ion-label>
+      <ion-select [(ngModel)]="padrino.OPCION2" name="OPCION2">
+        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Opción 3</ion-label>
+      <ion-select [(ngModel)]="padrino.OPCION3" name="OPCION3">
+        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
+      </ion-select>
+    </ion-item>
 
     <button ion-button type="submit" block>Guardar</button>
   </form>

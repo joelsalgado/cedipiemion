@@ -27,6 +27,10 @@ export class PublicoPage {
       });
   }
 
+  loadState(){
+      console.log();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad PublicoPage');
   }
