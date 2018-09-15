@@ -27,6 +27,28 @@ export class RestProvider {
         });
     });
   }
+  getEstructuras(id) {
+    return new Promise(resolve => {
+      this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/sectores/estructuras/'+id, {}, {}).
+      then((data) => {
+        resolve(data.data);
+      })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
+  getDependencias(id) {
+    return new Promise(resolve => {
+      this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/sectores/estructuras/dependencia/'+id, {}, {}).
+      then((data) => {
+        resolve(data.data);
+      })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
 
   getSectors() {
     return new Promise(resolve => {

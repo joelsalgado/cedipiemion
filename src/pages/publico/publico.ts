@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the PublicoPage page.
@@ -16,8 +17,46 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class PublicoPage {
   sectors: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public restProvider: RestProvider) {
+  estructuras: any;
+  dependencias: any;
+  muns: any;
+  padrino = {
+    CVE_SERV_PUBLICO: '',
+    SECTOR: 5,
+    ESTRUCTURA: '',
+    DEPENDENCIA: '',
+    PATERNO: '',
+    MATERNO: '',
+    NOMBRES: '',
+    SEXO : '',
+    RFC: '',
+    NO_AHIJADOS: '',
+    QUINCENA: '',
+    MES: '',
+    ANIO: '',
+    CARGO: '',
+    UNIDAD_ADMIN: '',
+    INSTITUCION: '',
+    CALLE : '',
+    NUM_EXT: '',
+    NUM_INT  : '',
+    COLONIA: '',
+    CP: '',
+    LADA: '',
+    TELEFONO: '',
+    CORREO: '',
+    RECIBO_DEDUCIBLE: '',
+    OPCION1: '',
+    OPCION2 : '',
+    OPCION3: '' };
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public restProvider: RestProvider,
+              private alertCtrl: AlertController
+  ) {
     this.getSectors();
+    this.getMuns();
+
   }
   getSectors() {
     this.restProvider.getSectors()
@@ -27,12 +66,50 @@ export class PublicoPage {
       });
   }
 
-  loadState(){
-      console.log();
+  getMuns() {
+    this.restProvider.getMunicipios()
+      .then(data => {
+        this.muns = JSON.parse(<string>data);
+        console.log(this.muns);
+      });
+  }
+
+  saveUser(){
+    this.restProvider.saveUser(this.padrino).then((result) => {
+      console.log(result);
+      if(result['status'] == 200){
+        let alert = this.alertCtrl.create({
+          title: 'Registro Correcto',
+          buttons: ['OK']
+        });
+        alert.present();
+        this.navCtrl.popTo('OptionPage');
+
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  loadEstructuras(){
+    this.restProvider.getEstructuras(this.padrino.SECTOR)
+      .then(data => {
+        this.estructuras = JSON.parse(<string>data);
+        console.log(this.estructuras);
+      });
+  }
+
+  loadDependencias(){
+    this.restProvider.getDependencias(this.padrino.ESTRUCTURA)
+      .then(data => {
+        this.dependencias = JSON.parse(<string>data);
+        console.log(this.dependencias);
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PublicoPage');
+
   }
 
 }
