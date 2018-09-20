@@ -77,7 +77,7 @@ export class PublicoPage {
   saveUser(){
     this.restProvider.saveUser(this.padrino).then((result) => {
       console.log(result);
-      if(result['status'] == 200){
+      if(result == '{"Ok":"200","Mensaje: ":"Registro agregado correctamente."}'){
         let alert = this.alertCtrl.create({
           title: 'Registro Correcto',
           buttons: ['OK']
@@ -85,6 +85,21 @@ export class PublicoPage {
         alert.present();
         this.navCtrl.popTo('OptionPage');
 
+      }else {
+        if (result == '{"Error":"505","Mensaje: ":"El RFC esta duplicado."}') {
+          let alert = this.alertCtrl.create({
+            title: 'RFC ya se encuentra en el sistema',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        if(result == '{"Error":"535","Mensaje: ":"Los municipios a apadrinar est\u00e1n duplicados"}' ){
+          let alert = this.alertCtrl.create({
+            title: 'Debes Escoger Diferentes MUnicipios',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
       }
     }, (err) => {
       console.log(err);

@@ -78,7 +78,7 @@ export class RestProvider {
     return new Promise(resolve => {
       this.http.post('http://187.189.134.199:8000/cedipiem/public/api/padrino/nuevo-padrino/app', data , {}).
       then((res) => {
-        resolve(res);
+        resolve(res.data);
       })
         .catch((error) => {
           console.log(error);

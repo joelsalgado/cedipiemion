@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
+import {V} from "@angular/core/src/render3";
 
 /**
  * Generated class for the PrivadoPage page.
@@ -16,42 +18,46 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'privado.html',
 })
 export class PrivadoPage {
+  myForm: FormGroup;
   sectors: any;
   estructuras: any;
   muns: any;
-  user = { name: '', username: '', email: '', phone: '', website: '', address: { street: '', suite: '', city: '', zipcode: '', geo: { lat: '', lng: '' } }, company: { name: '', bs: '', catchPhrase: '' }};
-  padrino = {
-    CVE_SERV_PUBLICO: '',
-    SECTOR: 5,
-    ESTRUCTURA: '',
-    PATERNO: '',
-    MATERNO: '',
-    NOMBRES: '',
-    RAZON_SOCIAL : '',
-    REPRESENTANTE: '',
-    RFC: '',
-    NO_AHIJADOS: '',
-    CALLE : '',
-    NUM_EXT: '',
-    NUM_INT  : '',
-    COLONIA: '',
-    CP: '',
-    LADA: '',
-    TELEFONO: '',
-    CORREO: '',
-    RECIBO_DEDUCIBLE: '',
-    OPCION1: '',
-    OPCION2 : '',
-    OPCION3: '' };
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public restProvider: RestProvider,
-              private alertCtrl: AlertController
+              private alertCtrl: AlertController,
+              public fb: FormBuilder
   ){
     this.getSectors();
     this.getEstructura();
     this.getMuns();
+
+    this.myForm = this.fb.group({
+      CVE_SERV_PUBLICO: ['', [Validators.required]],
+      SECTOR: [5, [Validators.required]],
+      ESTRUCTURA: ['', [Validators.required]],
+      PATERNO: ['', [Validators.required, Validators.pattern(/^[a-zñÑ\s]+$/i)]],
+      MATERNO: ['', [Validators.required,  Validators.pattern(/^[a-zñÑ\s]+$/i)]],
+      NOMBRES: ['', [Validators.required,  Validators.pattern(/^[a-zñÑ\s]+$/i)]],
+      RAZON_SOCIAL: ['', [Validators.required]],
+      REPRESENTANTE: [''],
+      RFC: ['', [Validators.required, Validators.pattern(/[A-Z]{4}\d{6}/i), Validators.maxLength(13), Validators.minLength(10)]],
+      AHIJADOS: ['', [Validators.required, Validators.min(1), Validators.max(500) ]],
+      CALLE: [''],
+      NUM_EXT: [''],
+      NUM_INT: [''],
+      COLONIA: [''],
+      CP: ['', [Validators.min(10000), Validators.max(90000)]],
+      LADA: [''],
+      TELEFONO: [''],
+      CORREO: ['', [Validators.required, Validators.email]],
+      RECIBO_DEDUCIBLE: ['', [Validators.required]],
+      OPCION1: ['', [Validators.required]],
+      OPCION2: ['', [Validators.required]],
+      OPCION3: ['', [Validators.required]],
+    });
 
   }
 
@@ -79,19 +85,34 @@ export class PrivadoPage {
       });
   }
 
-
-
-
   saveUser() {
-    this.restProvider.saveUser(this.padrino).then((result) => {
+    this.restProvider.saveUser(this.myForm.value).then((result) => {
       console.log(result);
-      if(result['status'] == 200){
+      if(result == '{"Ok":"200","Mensaje: ":"Registro agregado correctamente."}'){
         let alert = this.alertCtrl.create({
           title: 'Registro Correcto',
           buttons: ['OK']
         });
         alert.present();
         this.navCtrl.popTo('OptionPage');
+
+      }else{
+        if(result == '{"Error":"505","Mensaje: ":"El RFC esta duplicado."}' ){
+          let alert = this.alertCtrl.create({
+            title: 'RFC ya se encuentra en el sistema',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+
+        if(result == '{"Error":"535","Mensaje: ":"Los municipios a apadrinar est\u00e1n duplicados"}' ){
+          let alert = this.alertCtrl.create({
+            title: 'Debes Escoger Diferentes MUnicipios',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+
 
       }
     }, (err) => {

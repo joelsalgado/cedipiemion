@@ -8,114 +8,188 @@
 
   <ion-navbar color="color1">
     <ion-title>
-      APADRINA UN NIÑO INDIGENA
+      NUEVO PADRINO
     </ion-title>
   </ion-navbar>
 
 </ion-header>
 <ion-content padding>
-  <h2>Nuevo Padrino</h2>
-  <form (ngSubmit)="saveUser()">
+  <form [formGroup]="myForm" (ngSubmit)="saveUser()" novalidate>
+
     <ion-item>
-      <ion-label floating>Estructura Gubernamental</ion-label>
-      <ion-select [(ngModel)]="padrino.ESTRUCTURA" name="ESTRUCTURA">
+      <ion-label floating>Estructura (*)</ion-label>
+      <ion-select formControlName="ESTRUCTURA">
         <ion-option *ngFor="let estructura of estructuras" [value] = "estructura.estrucgob_id">{{estructura.estrucgob_desc}}</ion-option>
       </ion-select>
     </ion-item>
+    <ion-item *ngIf="myForm.get('ESTRUCTURA').errors && myForm.get('ESTRUCTURA').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('ESTRUCTURA').hasError('required')">Campo Requerido</p>
+    </ion-item>
+
     <ion-item>
-      <ion-label floating>Apellido Paterno</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.PATERNO" name="PATERNO" required="true"></ion-input>
+      <ion-label floating>Apellido Paterno (*)</ion-label>
+      <ion-input type="text" formControlName="PATERNO"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('PATERNO').errors && myForm.get('PATERNO').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('PATERNO').hasError('required')">Campo Requerido</p>
+      <p color="danger" ion-text *ngIf="myForm.get('PATERNO').hasError('pattern')">Sólo se aceptan letras sin acentos</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Apellido Materno (*)</ion-label>
+      <ion-input type="text" formControlName="MATERNO"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('MATERNO').errors && myForm.get('MATERNO').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('MATERNO').hasError('required')">Campo Requerido</p>
+      <p color="danger" ion-text *ngIf="myForm.get('MATERNO').hasError('pattern')">Sólo se aceptan letras sin acentos</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Nombre (*)</ion-label>
+      <ion-input type="text" formControlName="NOMBRES"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('NOMBRES').errors && myForm.get('NOMBRES').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('NOMBRES').hasError('required')">Campo Requerido</p>
+      <p color="danger" ion-text *ngIf="myForm.get('NOMBRES').hasError('pattern')">Sólo se aceptan letras sin acentos</p>
     </ion-item>
     <ion-item>
-      <ion-label floating>Apellido Materno</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.MATERNO" name="MATERNO"></ion-input>
+      <ion-label floating>Razón Social (*)</ion-label>
+      <ion-input type="text" formControlName="RAZON_SOCIAL"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('RAZON_SOCIAL').errors && myForm.get('RAZON_SOCIAL').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('RAZON_SOCIAL').hasError('required')">Campo Requerido</p>
     </ion-item>
     <ion-item>
-      <ion-label floating>Nombre</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.NOMBRES" name="NOMBRES"></ion-input>
+      <ion-label floating>Clave o número de trabajador (*)</ion-label>
+      <ion-input type="text" formControlName="CVE_SERV_PUBLICO"></ion-input>
     </ion-item>
+    <ion-item *ngIf="myForm.get('CVE_SERV_PUBLICO').errors && myForm.get('CVE_SERV_PUBLICO').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('CVE_SERV_PUBLICO').hasError('required')">Campo Requerido</p>
+    </ion-item>
+
     <ion-item>
-      <ion-label floating>Razón Social</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.RAZON_SOCIAL" name="RAZON_SOCIAL"></ion-input>
+      <ion-label floating>Representante de la empresa (*)</ion-label>
+      <ion-input type="text" formControlName="REPRESENTANTE"></ion-input>
     </ion-item>
+    <ion-item *ngIf="myForm.get('REPRESENTANTE').errors && myForm.get('REPRESENTANTE').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('REPRESENTANTE').hasError('required')">Campo Requerido</p>
+    </ion-item>
+
     <ion-item>
-      <ion-label floating>Clave o número de trabajador</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.CVE_SERV_PUBLICO" name="CVE_SERV_PUBLICO"></ion-input>
+      <ion-label floating>RFC (*)</ion-label>
+      <ion-input type="text" formControlName="RFC"></ion-input>
     </ion-item>
+    <ion-item *ngIf="myForm.get('RFC').errors && myForm.get('RFC').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('required')">Campo Requerido</p>
+      <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('pattern')">RFC incorrecto</p>
+      <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('maxlength')">RFC incorrecto</p>
+      <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('minlength')">EJEMEPLO JALM8804305J2</p>
+    </ion-item>
+
     <ion-item>
-      <ion-label floating>Representante de la empresa</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.REPRESENTANTE" name="REPRESENTANTE"></ion-input>
+      <ion-label floating>Ahijados a apadrinar (*)</ion-label>
+      <ion-input type="number" formControlName="AHIJADOS"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label floating>RFC</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.RFC" name="RFC"></ion-input>
+    <ion-item *ngIf="myForm.get('AHIJADOS').errors && myForm.get('AHIJADOS').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('AHIJADOS').hasError('required')">Campo Requerido</p>
+      <p color="danger" ion-text *ngIf="myForm.get('AHIJADOS').hasError('min')">Minimo 1 ahijado</p>
+      <p color="danger" ion-text *ngIf="myForm.get('AHIJADOS').hasError('max')">Maximo 500 ahijados</p>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Ahijados a apadrinar</ion-label>
-      <ion-range [(ngModel)]="padrino.NO_AHIJADOS" name="NO_AHIJADOS" pin="true" min="1" max ="500"></ion-range>
-    </ion-item>
+
     <ion-item-divider color="light">DOMICILIO FISCAL</ion-item-divider>
     <ion-item>
       <ion-label floating>Calle</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.CALLE" name="CALLE"></ion-input>
+      <ion-input type="text" formControlName="CALLE"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label floating>Núm. Ext</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.NUM_EXT" name="NUM_EXT"></ion-input>
+      <ion-input type="text" formControlName="NUM_EXT"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label floating>Núm. Int</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.NUM_INT" name="NUM_INT"></ion-input>
+      <ion-input type="text" formControlName="NUM_INT"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label floating>Colonia</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.COLONIA" name="COLONIA"></ion-input>
+      <ion-input type="text" formControlName="COLONIA"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label floating>C.P.</ion-label>
-      <ion-input type="number" [(ngModel)]="padrino.CP" name="CP"></ion-input>
+      <ion-input type="number" formControlName="CP"></ion-input>
     </ion-item>
+    <ion-item *ngIf="myForm.get('CP').errors && myForm.get('CP').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('CP').hasError('min')">A partir del 1000</p>
+      <p color="danger" ion-text *ngIf="myForm.get('CP').hasError('max')">Hasta 9000</p>
+    </ion-item>
+
     <ion-item>
       <ion-label floating>LADA</ion-label>
-      <ion-input type="text" [(ngModel)]="padrino.LADA" name="LADA"></ion-input>
+      <ion-input type="number" formControlName="LADA"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label floating>TELEFONO</ion-label>
-      <ion-input type="number" [(ngModel)]="padrino.TELEFONO" name="TELEFONO"></ion-input>
+      <ion-input type="number" formControlName="TELEFONO"></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label floating>Correo Electrónico</ion-label>
-      <ion-input type="email" [(ngModel)]="padrino.CORREO" name="CORREO"></ion-input>
+      <ion-label floating>Correo Electrónico (*)</ion-label>
+      <ion-input type="email" formControlName="CORREO"></ion-input>
     </ion-item>
+    <ion-item *ngIf="myForm.get('CORREO').errors && myForm.get('CORREO').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('CORREO').hasError('required')">Campo Requerido</p>
+      <p color="danger" ion-text *ngIf="myForm.get('CORREO').hasError('email')">Formato de correo no valido</p>
+    </ion-item>
+
     <br>
     <ion-item>
-      <ion-label floating>Requiere recibo deducible?</ion-label>
-      <ion-select [(ngModel)]="padrino.RECIBO_DEDUCIBLE" name="RECIBO_DEDUCIBLE">
+      <ion-label floating>Requiere recibo deducible? (*)</ion-label>
+      <ion-select formControlName="RECIBO_DEDUCIBLE">
         <ion-option value="S">SI</ion-option>
         <ion-option value="N">NO</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item-divider color="light">Opciones de municipio para apadrinar</ion-item-divider>
-    <ion-item>
-      <ion-label floating>Opción 1</ion-label>
-      <ion-select [(ngModel)]="padrino.OPCION1" name="OPCION1">
-        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Opción 2</ion-label>
-      <ion-select [(ngModel)]="padrino.OPCION2" name="OPCION2">
-        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Opción 3</ion-label>
-      <ion-select [(ngModel)]="padrino.OPCION3" name="OPCION3">
-        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
-      </ion-select>
+    <ion-item *ngIf="myForm.get('RECIBO_DEDUCIBLE').errors && myForm.get('RECIBO_DEDUCIBLE').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('RECIBO_DEDUCIBLE').hasError('required')">Campo Requerido</p>
     </ion-item>
 
-    <button ion-button type="submit" block>Guardar</button>
+    <ion-item-divider color="light">Opciones de municipio para apadrinar</ion-item-divider>
+    <ion-item>
+      <ion-label floating>Opción 1 (*)</ion-label>
+      <ion-select formControlName="OPCION1">
+        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('OPCION1').errors && myForm.get('OPCION1').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('OPCION1').hasError('required')">Campo Requerido</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Opción 2 (*)</ion-label>
+      <ion-select formControlName="OPCION2">
+        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('OPCION2').errors && myForm.get('OPCION2').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('OPCION2').hasError('required')">Campo Requerido</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Opción 3 (*)</ion-label>
+      <ion-select formControlName="OPCION3">
+        <ion-option *ngFor="let mun of muns" [value] = "mun.municipioid">{{mun.municipionombre}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('OPCION3').errors && myForm.get('OPCION3').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('OPCION3').hasError('required')">Campo Requerido</p>
+    </ion-item>
+
+
+    <button ion-button type="submit" block [disabled]="myForm.invalid">Guardar</button>
   </form>
 
 
