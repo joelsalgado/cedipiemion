@@ -107,34 +107,13 @@
     <ion-item>
       <ion-label floating>A partir de la (*)</ion-label>
       <ion-select formControlName="QUINCENA">
-        <ion-option value=1>PRIMER QUINCENA</ion-option>
-        <ion-option value=2>SEGUNDA QUINCENA</ion-option>
+        <ion-option *ngFor="let quincena of quincenas" [value] = "quincena.id_quincena">{{quincena.desc_quincena}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="myForm.get('QUINCENA').errors && myForm.get('QUINCENA').dirty">
       <p color="danger" ion-text *ngIf="myForm.get('QUINCENA').hasError('required')">Campo Requerido</p>
     </ion-item>
 
-    <ion-item>
-      <ion-label floating> Del mes de (*)</ion-label>
-      <ion-select formControlName="MES">
-        <ion-option value=1>ENERO</ion-option>
-        <ion-option value=2>FEBRERO</ion-option>
-        <ion-option value=3>MARZO</ion-option>
-        <ion-option value=4>ABRIL</ion-option>
-        <ion-option value=5>MAYO</ion-option>
-        <ion-option value=6>JUNIO</ion-option>
-        <ion-option value=7>JULIO</ion-option>
-        <ion-option value=8>AGOSTO</ion-option>
-        <ion-option value=9>SEPTIEMBRE</ion-option>
-        <ion-option value=10>OCTUBRE</ion-option>
-        <ion-option value=11>NOVIEMBRE</ion-option>
-        <ion-option value=12>DICIEMBRE</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item *ngIf="myForm.get('MES').errors && myForm.get('MES').dirty">
-      <p color="danger" ion-text *ngIf="myForm.get('MES').hasError('required')">Campo Requerido</p>
-    </ion-item>
 
     <ion-item>
       <ion-label floating>Del año: (*)</ion-label>

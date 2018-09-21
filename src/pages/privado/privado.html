@@ -60,15 +60,12 @@
       <p color="danger" ion-text *ngIf="myForm.get('RAZON_SOCIAL').hasError('required')">Campo Requerido</p>
     </ion-item>
     <ion-item>
-      <ion-label floating>Clave o número de trabajador (*)</ion-label>
+      <ion-label floating>Clave o número de trabajador (Solo si aplica)</ion-label>
       <ion-input type="text" formControlName="CVE_SERV_PUBLICO"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="myForm.get('CVE_SERV_PUBLICO').errors && myForm.get('CVE_SERV_PUBLICO').dirty">
-      <p color="danger" ion-text *ngIf="myForm.get('CVE_SERV_PUBLICO').hasError('required')">Campo Requerido</p>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Representante de la empresa (*)</ion-label>
+      <ion-label floating>Representante de la empresa</ion-label>
       <ion-input type="text" formControlName="REPRESENTANTE"></ion-input>
     </ion-item>
     <ion-item *ngIf="myForm.get('REPRESENTANTE').errors && myForm.get('REPRESENTANTE').dirty">
@@ -76,11 +73,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label floating>RFC (*)</ion-label>
+      <ion-label floating>RFC de la Empresa (Solo si aplica)</ion-label>
       <ion-input type="text" formControlName="RFC"></ion-input>
     </ion-item>
     <ion-item *ngIf="myForm.get('RFC').errors && myForm.get('RFC').dirty">
-      <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('required')">Campo Requerido</p>
       <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('pattern')">RFC incorrecto</p>
       <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('maxlength')">RFC incorrecto</p>
       <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('minlength')">EJEMEPLO JALM8804305J2</p>

@@ -34,7 +34,7 @@ export class PrivadoPage {
     this.getMuns();
 
     this.myForm = this.fb.group({
-      CVE_SERV_PUBLICO: ['', [Validators.required]],
+      CVE_SERV_PUBLICO: [''],
       SECTOR: [5, [Validators.required]],
       ESTRUCTURA: ['', [Validators.required]],
       PATERNO: ['', [Validators.required, Validators.pattern(/^[a-zñÑ\s]+$/i)]],
@@ -42,7 +42,7 @@ export class PrivadoPage {
       NOMBRES: ['', [Validators.required,  Validators.pattern(/^[a-zñÑ\s]+$/i)]],
       RAZON_SOCIAL: ['', [Validators.required]],
       REPRESENTANTE: [''],
-      RFC: ['', [Validators.required, Validators.pattern(/[A-Z]{4}\d{6}/i), Validators.maxLength(13), Validators.minLength(10)]],
+      RFC: ['', [Validators.pattern(/[A-Z]{4}\d{6}/i), Validators.maxLength(13), Validators.minLength(10)]],
       AHIJADOS: ['', [Validators.required, Validators.min(1), Validators.max(500) ]],
       CALLE: [''],
       NUM_EXT: [''],
@@ -84,10 +84,10 @@ export class PrivadoPage {
       });
   }
 
-  saveUser() {
+  saveUser(){
     this.restProvider.saveUser(this.myForm.value).then((result) => {
       console.log(result);
-      if(result == '{"Ok":"200","Mensaje: ":"Registro agregado correctamente."}'){
+      if(result == '200'){
         let alert = this.alertCtrl.create({
           title: 'Registro Correcto',
           buttons: ['OK']
@@ -95,8 +95,8 @@ export class PrivadoPage {
         alert.present();
         this.navCtrl.popTo('OptionPage');
 
-      }else{
-        if(result == '{"Error":"505","Mensaje: ":"El RFC esta duplicado."}' ){
+      }else {
+        if (result == '505') {
           let alert = this.alertCtrl.create({
             title: 'RFC ya se encuentra en el sistema',
             buttons: ['OK']
@@ -104,7 +104,7 @@ export class PrivadoPage {
           alert.present();
         }
 
-        if(result == '{"Error":"535","Mensaje: ":"Los municipios a apadrinar est\u00e1n duplicados"}' ){
+        if(result == '535' ){
           let alert = this.alertCtrl.create({
             title: 'Debes Escoger Diferentes MUnicipios',
             buttons: ['OK']
@@ -112,7 +112,30 @@ export class PrivadoPage {
           alert.present();
         }
 
+        if(result == '515' ){
+          let alert = this.alertCtrl.create({
+            title: 'La clasificación ingresada no fue encontrada en la base de datos.',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
 
+        if(result == '525' ){
+          let alert = this.alertCtrl.create({
+            title: 'No se encontro la estructura gubernamental.',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+
+        if(result == '501' ){
+          let alert = this.alertCtrl.create({
+            title: 'Ha ocurrido un error!.',
+            message: 'Revisa tu informaciòn',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
       }
     }, (err) => {
       console.log(err);

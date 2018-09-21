@@ -62,6 +62,18 @@ export class RestProvider {
     });
   }
 
+  getQuincenas() {
+    return new Promise(resolve => {
+      this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/quincenas', {}, {}).
+      then((data) => {
+        resolve(data.data);
+      })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
+
   getMunicipios() {
     return new Promise(resolve => {
       this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/municipios', {}, {}).
