@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
 
@@ -20,43 +21,45 @@ export class PublicoPage {
   estructuras: any;
   dependencias: any;
   muns: any;
-  padrino = {
-    CVE_SERV_PUBLICO: '',
-    SECTOR: 5,
-    ESTRUCTURA: '',
-    DEPENDENCIA: '',
-    PATERNO: '',
-    MATERNO: '',
-    NOMBRES: '',
-    SEXO : '',
-    RFC: '',
-    NO_AHIJADOS: '',
-    QUINCENA: '',
-    MES: '',
-    ANIO: '',
-    CARGO: '',
-    UNIDAD_ADMIN: '',
-    INSTITUCION: '',
-    CALLE : '',
-    NUM_EXT: '',
-    NUM_INT  : '',
-    COLONIA: '',
-    CP: '',
-    LADA: '',
-    TELEFONO: '',
-    CORREO: '',
-    RECIBO_DEDUCIBLE: '',
-    OPCION1: '',
-    OPCION2 : '',
-    OPCION3: '' };
+  myForm: FormGroup;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public restProvider: RestProvider,
-              private alertCtrl: AlertController
+              private alertCtrl: AlertController,
+              public fb: FormBuilder
   ) {
     this.getSectors();
     this.getMuns();
 
+    this.myForm = this.fb.group({
+      CVE_SERV_PUBLICO: ['', [Validators.required]],
+      SECTOR: [5, [Validators.required]],
+      ESTRUCTURA: ['', [Validators.required]],
+      PATERNO: ['', [Validators.required, Validators.pattern(/^[a-zñÑ\s]+$/i)]],
+      MATERNO: ['', [Validators.required,  Validators.pattern(/^[a-zñÑ\s]+$/i)]],
+      NOMBRES: ['', [Validators.required,  Validators.pattern(/^[a-zñÑ\s]+$/i)]],
+      SEXO: ['', [Validators.required]],
+      RFC: ['', [Validators.required, Validators.pattern(/[A-Z]{4}\d{6}/i), Validators.maxLength(13), Validators.minLength(10)]],
+      AHIJADOS: ['', [Validators.required, Validators.min(1), Validators.max(500) ]],
+      QUINCENA: ['', [Validators.required]],
+      MES: ['', [Validators.required]],
+      ANIO: ['', [Validators.required]],
+      CARGO: ['', [Validators.required]],
+      UNIDAD_ADMIN: [''],
+      INSTITUCION: [''],
+      CALLE: [''],
+      NUM_EXT: [''],
+      NUM_INT: [''],
+      COLONIA: [''],
+      CP: ['', [Validators.min(10000), Validators.max(90000)]],
+      LADA: ['',[Validators.required]],
+      TELEFONO: ['',[Validators.required]],
+      CORREO: ['', [Validators.required, Validators.email]],
+      OPCION1: ['', [Validators.required]],
+      OPCION2: ['', [Validators.required]],
+      OPCION3: ['', [Validators.required]],
+    });
   }
   getSectors() {
     this.restProvider.getSectors()
@@ -75,7 +78,7 @@ export class PublicoPage {
   }
 
   saveUser(){
-    this.restProvider.saveUser(this.padrino).then((result) => {
+    this.restProvider.saveUser(this.myForm.value).then((result) => {
       console.log(result);
       if(result == '{"Ok":"200","Mensaje: ":"Registro agregado correctamente."}'){
         let alert = this.alertCtrl.create({
@@ -107,7 +110,7 @@ export class PublicoPage {
   }
 
   loadEstructuras(){
-    this.restProvider.getEstructuras(this.padrino.SECTOR)
+    this.restProvider.getEstructuras(this.myForm.value.SECTOR)
       .then(data => {
         this.estructuras = JSON.parse(<string>data);
         console.log(this.estructuras);
@@ -115,7 +118,7 @@ export class PublicoPage {
   }
 
   loadDependencias(){
-    this.restProvider.getDependencias(this.padrino.ESTRUCTURA)
+    this.restProvider.getDependencias(this.myForm.value.ESTRUCTURA)
       .then(data => {
         this.dependencias = JSON.parse(<string>data);
         console.log(this.dependencias);

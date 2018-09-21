@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
-import {V} from "@angular/core/src/render3";
 
 /**
  * Generated class for the PrivadoPage page.
@@ -50,8 +49,8 @@ export class PrivadoPage {
       NUM_INT: [''],
       COLONIA: [''],
       CP: ['', [Validators.min(10000), Validators.max(90000)]],
-      LADA: [''],
-      TELEFONO: [''],
+      LADA: ['', [Validators.required]],
+      TELEFONO: ['', [Validators.required]],
       CORREO: ['', [Validators.required, Validators.email]],
       RECIBO_DEDUCIBLE: ['', [Validators.required]],
       OPCION1: ['', [Validators.required]],

@@ -127,13 +127,19 @@
     </ion-item>
 
     <ion-item>
-      <ion-label floating>LADA</ion-label>
+      <ion-label floating>LADA (*)</ion-label>
       <ion-input type="number" formControlName="LADA"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('LADA').errors && myForm.get('LADA').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('LADA').hasError('required')">Campo Requerido</p>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>TELEFONO</ion-label>
+      <ion-label floating>TELEFONO (*)</ion-label>
       <ion-input type="number" formControlName="TELEFONO"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="myForm.get('TELEFONO').errors && myForm.get('TELEFONO').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('TELEFONO').hasError('required')">Campo Requerido</p>
     </ion-item>
 
     <ion-item>
