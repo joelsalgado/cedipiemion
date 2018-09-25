@@ -60,7 +60,7 @@
       <p color="danger" ion-text *ngIf="myForm.get('RAZON_SOCIAL').hasError('required')">Campo Requerido</p>
     </ion-item>
     <ion-item>
-      <ion-label floating>Clave o número de trabajador (Solo si aplica)</ion-label>
+      <ion-label floating class="my-label">Clave o número de trabajador (Solo si aplica)</ion-label>
       <ion-input type="text" formControlName="CVE_SERV_PUBLICO"></ion-input>
     </ion-item>
 
@@ -79,7 +79,7 @@
     <ion-item *ngIf="myForm.get('RFC').errors && myForm.get('RFC').dirty">
       <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('pattern')">RFC incorrecto</p>
       <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('maxlength')">RFC incorrecto</p>
-      <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('minlength')">EJEMEPLO JALM8804305J2</p>
+      <p color="danger" ion-text *ngIf="myForm.get('RFC').hasError('minlength')">EJEMPLO JALM8804305J2</p>
     </ion-item>
 
     <ion-item>
@@ -118,8 +118,8 @@
       <ion-input type="number" formControlName="CP"></ion-input>
     </ion-item>
     <ion-item *ngIf="myForm.get('CP').errors && myForm.get('CP').dirty">
-      <p color="danger" ion-text *ngIf="myForm.get('CP').hasError('min')">A partir del 1000</p>
-      <p color="danger" ion-text *ngIf="myForm.get('CP').hasError('max')">Hasta 9000</p>
+      <p color="danger" ion-text *ngIf="myForm.get('CP').hasError('min')">A partir del 10000</p>
+      <p color="danger" ion-text *ngIf="myForm.get('CP').hasError('max')">Hasta 90000</p>
     </ion-item>
 
     <ion-item>
@@ -127,6 +127,8 @@
       <ion-input type="number" formControlName="LADA"></ion-input>
     </ion-item>
     <ion-item *ngIf="myForm.get('LADA').errors && myForm.get('LADA').dirty">
+      <p color="danger" ion-text *ngIf="myForm.get('LADA').hasError('maxlength')">Maximo 3 Digitos</p>
+      <p color="danger" ion-text *ngIf="myForm.get('LADA').hasError('minlength')">Minino 2 Digitos</p>
       <p color="danger" ion-text *ngIf="myForm.get('LADA').hasError('required')">Campo Requerido</p>
     </ion-item>
 
@@ -136,6 +138,8 @@
     </ion-item>
     <ion-item *ngIf="myForm.get('TELEFONO').errors && myForm.get('TELEFONO').dirty">
       <p color="danger" ion-text *ngIf="myForm.get('TELEFONO').hasError('required')">Campo Requerido</p>
+      <p color="danger" ion-text *ngIf="myForm.get('TELEFONO').hasError('maxlength')">Maximo 8 Digitos</p>
+      <p color="danger" ion-text *ngIf="myForm.get('TELEFONO').hasError('minlength')">Minino 7 Digitos</p>
     </ion-item>
 
     <ion-item>

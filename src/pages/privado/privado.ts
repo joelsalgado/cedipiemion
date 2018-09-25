@@ -49,8 +49,8 @@ export class PrivadoPage {
       NUM_INT: [''],
       COLONIA: [''],
       CP: ['', [Validators.min(10000), Validators.max(90000)]],
-      LADA: ['', [Validators.required]],
-      TELEFONO: ['', [Validators.required]],
+      LADA: ['', [Validators.required, Validators.maxLength(3), Validators.minLength(2)]],
+      TELEFONO: ['', [Validators.required, Validators.maxLength(8), Validators.minLength(7)]],
       CORREO: ['', [Validators.required, Validators.email]],
       RECIBO_DEDUCIBLE: ['', [Validators.required]],
       OPCION1: ['', [Validators.required]],
@@ -132,6 +132,14 @@ export class PrivadoPage {
           let alert = this.alertCtrl.create({
             title: 'Ha ocurrido un error!.',
             message: 'Revisa tu informaciòn',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        if(result == '555' ){
+          let alert = this.alertCtrl.create({
+            title: 'Telefono Incorrecto!.',
+            message: 'Longitud de lada y telefono debe ser de 10 digitos',
             buttons: ['OK']
           });
           alert.present();

@@ -36,7 +36,7 @@ export class PublicoPage {
     this.getQuincenas();
 
     this.myForm = this.fb.group({
-      CVE_SERV_PUBLICO: ['', [Validators.required]],
+      CVE_SERV_PUBLICO: ['', [Validators.required,  Validators.maxLength(9), Validators.minLength(9)]],
       SECTOR: [5, [Validators.required]],
       ESTRUCTURA: ['', [Validators.required]],
       PATERNO: ['', [Validators.required, Validators.pattern(/^[a-zñÑ\s]+$/i)]],
@@ -55,8 +55,8 @@ export class PublicoPage {
       NUM_INT: [''],
       COLONIA: [''],
       CP: ['', [Validators.min(10000), Validators.max(90000)]],
-      LADA: ['',[Validators.required]],
-      TELEFONO: ['',[Validators.required]],
+      LADA: ['', [Validators.required, Validators.maxLength(3), Validators.minLength(2)]],
+      TELEFONO: ['', [Validators.required, Validators.maxLength(8), Validators.minLength(7)]],
       CORREO: ['', [Validators.required, Validators.email]],
       OPCION1: ['', [Validators.required]],
       OPCION2: ['', [Validators.required]],
@@ -136,6 +136,22 @@ export class PublicoPage {
           let alert = this.alertCtrl.create({
             title: 'Ha ocurrido un error!.',
             message: 'Revisa tu informaciòn',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        if(result == '545' ){
+          let alert = this.alertCtrl.create({
+            title: 'RFC Vacio!.',
+            message: 'Si requieres recibo deducible debes llenar el campo RFC ',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        if(result == '555' ){
+          let alert = this.alertCtrl.create({
+            title: 'Telefono Incorrecto!.',
+            message: 'Longitud de lada y telefono debe ser de 10 digitos',
             buttons: ['OK']
           });
           alert.present();
