@@ -100,4 +100,34 @@ export class RestProvider {
 
 
 
+
+
+  getPadrino(cve, rfc) {
+    return new Promise(resolve => {
+      this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/login/'+cve+'/'+rfc, {}, {}).
+      then((data) => {
+        resolve(data.data);
+      })
+        .catch((error) => {
+          console.log(error.status);
+          resolve(error.status);
+        });
+    });
+  }
+
+  getAhijados(cve) {
+    return new Promise(resolve => {
+      this.http.get('http://187.189.134.199:8000/cedipiem/public/sedesem/padrino/ver/ahijado/'+cve, {}, {}).
+      then((data) => {
+        resolve(data.data);
+      })
+        .catch((error) => {
+          console.log(error.status);
+          resolve(error.status);
+        });
+    });
+  }
+
+
+
 }

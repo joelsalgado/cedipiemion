@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import {OptionsPage} from '../options/options'
+import {OptionsPage} from '../options/options';
+import {LoginPage} from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -17,6 +18,10 @@ export class HomePage {
 
   goOptions():void{
     this.navCtrl.push(OptionsPage);
+  }
+
+  goLogin():void{
+    this.navCtrl.push(LoginPage);
   }
 
 
