@@ -68,7 +68,7 @@ export class LoginPage {
           });
           alert.present();
         }
-        if(this.padrino[0]){
+        if(this.padrino){
           console.log(this.padrino);
           this.navCtrl.setRoot(InicioPage, {rfc: this.rfc, cve: this.cve_serv})
         }

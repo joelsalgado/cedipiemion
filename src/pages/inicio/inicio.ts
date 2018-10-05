@@ -59,9 +59,9 @@ export class InicioPage {
           });
           alert.present();
         }
-        if(this.padrino[0]){
+        if(this.padrino){
           console.log(this.padrino);
-          this.nombre = this.padrino[0]['nombre_completo'];
+          this.nombre = this.padrino['nombre_completo'];
         }
         //console.log(this.padrino[0]['nombre_completo']);
       });
