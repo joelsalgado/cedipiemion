@@ -34,11 +34,20 @@ export class AhijadosPage {
   getAhijados(){
     this.restProvider.getAhijados(this.cve)
       .then(data => {
-        this.morros = JSON.parse(<string>data);
-
+        if(data == 510){
+          let alert = this.alertCtrl.create({
+            title: 'Todavía no se asigna ahijado',
+            buttons: ['OK']
+          });
+          alert.present();
+          this.morros = [];
+        }else{
+          this.morros = JSON.parse(<string>data);
           console.log(this.morros);
+          //console.log(this.padrino[0]['nombre_completo']);
+        }
 
-        //console.log(this.padrino[0]['nombre_completo']);
+
       });
   }
 

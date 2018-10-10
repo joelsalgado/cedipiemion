@@ -45,6 +45,7 @@ export class LoginPage {
     this.restProvider.getPadrino(this.cve_serv, this.rfc)
       .then(data => {
         this.padrino = JSON.parse(<string>data);
+        //console.log(this.padrino.cve_padrino);
         if (data == '575'){
           let alert = this.alertCtrl.create({
             title: 'No se encuentra en la base de datos',
@@ -68,7 +69,7 @@ export class LoginPage {
           });
           alert.present();
         }
-        if(this.padrino){
+        if(this.padrino.cve_padrino){
           console.log(this.padrino);
           this.navCtrl.setRoot(InicioPage, {rfc: this.rfc, cve: this.cve_serv})
         }

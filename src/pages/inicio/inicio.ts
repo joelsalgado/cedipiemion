@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
 import {AhijadosPage} from "../ahijados/ahijados";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the InicioPage page.
@@ -73,6 +74,10 @@ export class InicioPage {
 
   goEstadoCuenta(){
 
+  }
+
+  goBack(){
+    this.navCtrl.setRoot(HomePage);
   }
 
   ionViewDidLoad() {
